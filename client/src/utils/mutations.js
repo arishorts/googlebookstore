@@ -12,16 +12,6 @@ export const ADD_USER = gql`
   }
 `;
 
-export const ADD_SKILL = gql`
-  mutation addSkill($userId: ID!, $skill: String!) {
-    addSkill(userId: $userId, skill: $skill) {
-      _id
-      name
-      skills
-    }
-  }
-`;
-
 export const LOGIN_USER = gql`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
@@ -30,6 +20,24 @@ export const LOGIN_USER = gql`
         _id
         username
       }
+    }
+  }
+`;
+
+export const SAVE_BOOK = gql`
+  mutation saveBook($userId: ID!, $content: BookContent!) {
+    saveBook(userId: $userId, content: $content) {
+      _id
+    }
+  }
+`;
+
+export const REMOVE_BOOK = gql`
+  mutation removeBook($book: String!) {
+    removeBook(book: $book) {
+      _id
+      name
+      books
     }
   }
 `;
