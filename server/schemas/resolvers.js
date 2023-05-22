@@ -7,6 +7,7 @@ const resolvers = {
     me: async (parent, args, context) => {
       if (context.user) {
         return User.findOne({ _id: context.user._id });
+        //return User.findOne({ _id: context.user._id }).populate('saveBooks');
       }
       throw new AuthenticationError("You need to be logged in!");
     },
@@ -38,7 +39,7 @@ const resolvers = {
       return User.findOneAndUpdate(
         { _id: userId },
         {
-          $addToSet: { books: content },
+          $addToSet: { savedBooks: content },
         },
         {
           new: true,
@@ -51,7 +52,7 @@ const resolvers = {
       if (context.user) {
         return User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { books: book } },
+          { $pull: { savedBooks: book } },
           { new: true }
         );
       }
