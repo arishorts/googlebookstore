@@ -16,8 +16,8 @@ const SavedBooks = () => {
   const [savedBookIds, setSavedBookIds] = useState([]);
 
   // Check if data is returning from the `QUERY_ME` query, then the `QUERY_SINGLE_PROFILE` query
-  const profile = userData?.me;
-  const [removeBook] = useMutation(REMOVE_BOOK);
+  const profile = userData?.me || {};
+  const [removeBook, { error }] = useMutation(REMOVE_BOOK);
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
@@ -28,8 +28,8 @@ const SavedBooks = () => {
     }
 
     try {
-      const response = await removeBook({
-        variables: { book: bookId },
+      const { data } = await removeBook({
+        variables: { bookId },
       });
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
@@ -77,7 +77,10 @@ const SavedBooks = () => {
                       <Card.Text>{book.description}</Card.Text>
                       <Button
                         className="btn-block btn-danger"
-                        onClick={() => handleDeleteBook(book.bookId)}
+                        onClick={() => {
+                          handleDeleteBook(book.bookId);
+                          console.log(book.bookId);
+                        }}
                       >
                         Delete this Book!
                       </Button>
