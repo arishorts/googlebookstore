@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { removeBookId } from "./localStorage";
+import SavedBooks from "./../pages/SavedBooks";
 
 export const ADD_USER = gql`
   mutation addUser($username: String!, $email: String!, $password: String!) {
@@ -50,7 +50,16 @@ export const REMOVE_BOOK = gql`
     removeBook(bookId: $bookId) {
       _id
       username
-      savedBooks
+      email
+      bookCount
+      SavedBooks {
+        title
+        bookId
+        authors
+        image
+        description
+        link
+      }
     }
   }
 `;

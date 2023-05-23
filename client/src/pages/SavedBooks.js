@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+// import React, { useState } from "react";
 import { Container, Card, Button, Row, Col } from "react-bootstrap";
 
-// import { getMe, deleteBook } from "../utils/API";
 import Auth from "../utils/auth";
 import { removeBookId } from "../utils/localStorage";
 
@@ -13,11 +12,11 @@ const SavedBooks = () => {
   // create state to hold saved bookId values
 
   const { loading, data: userData } = useQuery(QUERY_ME);
-  const [savedBookIds, setSavedBookIds] = useState([]);
+  // const [savedBookIds, setSavedBookIds] = useState([]);
 
   // Check if data is returning from the `QUERY_ME` query, then the `QUERY_SINGLE_PROFILE` query
   const profile = userData?.me || {};
-  const [removeBook, { error }] = useMutation(REMOVE_BOOK);
+  const [removeBook] = useMutation(REMOVE_BOOK);
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
@@ -28,9 +27,10 @@ const SavedBooks = () => {
     }
 
     try {
-      const { data } = await removeBook({
+      await removeBook({
         variables: { bookId },
       });
+
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
     } catch (err) {
@@ -45,16 +45,16 @@ const SavedBooks = () => {
 
   return (
     <>
-      <div fluid className="text-light bg-dark p-5">
+      <div fluid="true" className="text-light bg-dark p-5">
         <Container>
           <h1>Viewing saved books!</h1>
         </Container>
       </div>
       <Container>
         <h2 className="pt-5">
-          {profile?.savedBooks.length
-            ? `Viewing ${profile.savedBooks.length} saved ${
-                profile.savedBooks.length === 1 ? "book" : "books"
+          {profile?.bookCount
+            ? `Viewing ${profile.bookCount} saved ${
+                profile.bookCount === 1 ? "book" : "books"
               }:`
             : "You have no saved books!"}
         </h2>
@@ -77,10 +77,7 @@ const SavedBooks = () => {
                       <Card.Text>{book.description}</Card.Text>
                       <Button
                         className="btn-block btn-danger"
-                        onClick={() => {
-                          handleDeleteBook(book.bookId);
-                          console.log(book.bookId);
-                        }}
+                        onClick={() => handleDeleteBook(book.bookId)}
                       >
                         Delete this Book!
                       </Button>
