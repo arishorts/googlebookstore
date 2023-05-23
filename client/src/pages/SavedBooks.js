@@ -12,13 +12,12 @@ import { QUERY_ME } from "../utils/queries";
 const SavedBooks = () => {
   // create state to hold saved bookId values
 
-  const { loading, userData } = useQuery(QUERY_ME);
+  const { loading, data: userData } = useQuery(QUERY_ME);
   const [savedBookIds, setSavedBookIds] = useState([]);
 
   // Check if data is returning from the `QUERY_ME` query, then the `QUERY_SINGLE_PROFILE` query
-  console.log(loading);
   const profile = userData?.me;
-  const [removeBook, { error, data }] = useMutation(REMOVE_BOOK);
+  const [removeBook] = useMutation(REMOVE_BOOK);
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
@@ -53,14 +52,14 @@ const SavedBooks = () => {
       </div>
       <Container>
         <h2 className="pt-5">
-          {profile.savedBooks.length
-            ? `Viewing ${profile.savedBooks?.length} saved ${
+          {profile?.savedBooks.length
+            ? `Viewing ${profile.savedBooks.length} saved ${
                 profile.savedBooks.length === 1 ? "book" : "books"
               }:`
             : "You have no saved books!"}
         </h2>
         <Row>
-          {profile.savedBooks?.length &&
+          {profile?.savedBooks &&
             profile.savedBooks.map((book) => {
               return (
                 <Col md="4">

@@ -9,7 +9,7 @@ const typeDefs = gql`
 
   # This "Book" type defines the queryable fields for every book in our data source.
   type Book {
-    bookId: ID!
+    bookId: String!
     authors: [String]
     description: String
     title: String!
@@ -51,7 +51,7 @@ const typeDefs = gql`
     #saveBook(userId: ID!, content: BookContent!): User
     saveBook(content: BookContent!): User
     #removeBook(book: String!): User
-    removeBook(bookId: ID!): User
+    removeBook(bookId: String!): User
   }
 `;
 
