@@ -16,7 +16,27 @@ const SavedBooks = () => {
 
   // Check if data is returning from the `QUERY_ME` query, then the `QUERY_SINGLE_PROFILE` query
   const profile = userData?.me || {};
-  const [removeBook] = useMutation(REMOVE_BOOK);
+
+  const [removeBook] = useMutation(REMOVE_BOOK, {
+    update(cache, { data: { removeBook } }) {
+      try {
+        const { me } = cache.readQuery({ query: QUERY_ME });
+        cache.writeQuery({
+          query: QUERY_ME,
+          data: {
+            me: {
+              ...me,
+              savedBooks: me.savedBooks.filter(
+                (book) => book.bookId !== removeBook.bookId
+              ),
+            },
+          },
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    },
+  });
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {

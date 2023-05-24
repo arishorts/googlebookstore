@@ -1,5 +1,4 @@
 import { gql } from "@apollo/client";
-import SavedBooks from "./../pages/SavedBooks";
 
 export const ADD_USER = gql`
   mutation addUser($username: String!, $email: String!, $password: String!) {
@@ -52,7 +51,7 @@ export const REMOVE_BOOK = gql`
       username
       email
       bookCount
-      SavedBooks {
+      savedBooks {
         title
         bookId
         authors
