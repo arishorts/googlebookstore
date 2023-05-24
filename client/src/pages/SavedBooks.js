@@ -16,7 +16,6 @@ const SavedBooks = () => {
 
   // Check if data is returning from the `QUERY_ME` query, then the `QUERY_SINGLE_PROFILE` query
   const profile = userData?.me || {};
-  console.log(profile);
   const [removeBook] = useMutation(REMOVE_BOOK, {
     update(cache, { data: { removeBook } }) {
       try {
@@ -82,8 +81,8 @@ const SavedBooks = () => {
           {profile?.savedBooks &&
             profile.savedBooks.map((book) => {
               return (
-                <Col md="4">
-                  <Card key={book.bookId} border="dark">
+                <Col key={book.bookId} md="4">
+                  <Card border="dark">
                     {book.image ? (
                       <Card.Img
                         src={book.image}
