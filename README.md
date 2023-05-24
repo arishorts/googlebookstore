@@ -40,23 +40,13 @@ npm i
 
 After completing the installation steps, continue here: <br>
 
-3. Run 'npm run start:dev' to start the server and run the application
+3. Run 'npm run develop' to start the server and run the application
 
 ```
-npm run start:dev
+npm run develop
 ```
 
-4. Finally, navigate the the respective port
-
-```
-http://localhost:3000/
-```
-
-5. The user has an option to either install a native app on their device or leave the webpage, resulting in persistent data storage
-
-## Usage:
-
-&nbsp; The website can be found at: https://arishorts.github.io/googlebookstore/
+4. Finally, the respective page will display in your browser
 
 ## Tests:
 
