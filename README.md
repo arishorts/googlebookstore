@@ -35,8 +35,8 @@ npm i
 <br>
 &nbsp; The website is deployed at: https://arishorts-googlebookstore.herokuapp.com/
 
-![alttext](./client/public/demo1.JPG)
-![alttext](./client/public/demo2.JPG)
+<img src="./client/public/demo1.JPG" alt="Image" width="600" height="440">
+<img src="./client/public/demo2.JPG" alt="Image" width="600" height="440">
 
 After completing the installation steps, continue here: <br>
 
