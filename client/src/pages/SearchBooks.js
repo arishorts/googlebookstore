@@ -41,13 +41,19 @@ const SearchBooks = () => {
 
       const { items } = await response.json();
 
-      const bookData = items.map((book) => ({
-        bookId: book.id,
-        authors: book.volumeInfo.authors || ["No author to display"],
-        title: book.volumeInfo.title,
-        description: book.volumeInfo.description,
-        image: book.volumeInfo.imageLinks?.thumbnail || "",
-      }));
+      const bookData = items.map((book) => {
+        const image = book.volumeInfo.imageLinks?.thumbnail || "";
+        // Replace "http://" with "https://"
+        const secureImage = image.replace("http://", "https://");
+
+        return {
+          bookId: book.id,
+          authors: book.volumeInfo.authors || ["No author to display"],
+          title: book.volumeInfo.title,
+          description: book.volumeInfo.description,
+          image: secureImage || "",
+        };
+      });
 
       setSearchedBooks(bookData);
       setSearchInput("");
@@ -125,7 +131,7 @@ const SearchBooks = () => {
                     <Card.Img
                       src={book.image}
                       alt={`The cover for ${book.title}`}
-                      variant="top"
+                      variant="bottom"
                     />
                   ) : null}
                   <Card.Body>
